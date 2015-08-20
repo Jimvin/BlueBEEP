@@ -1,0 +1,1 @@
+@spfpc source\%1.pas

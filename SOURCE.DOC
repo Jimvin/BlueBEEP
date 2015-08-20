@@ -1,0 +1,340 @@
+
+
+
+
+
+
+
+                       BlueBEEP v1.00 Final Release
+                        Source Code Documentation
+              Docs and source (C) 1991-1995 Onkel Dittmeyer
+
+                - Released to the public April 1st, 1995 -
+
+
+
+PURPOSE OF THIS FILE
+
+    Pursuant to the USC Paperword Reduction Act, we have to tell you what
+  this file is all about (nawt). It is an open letter to the potential haqr
+  who wants to go ahead and mod the code. This should enlighten you a bit
+  on what I was thinking when I made it and how it is organized. The code
+  is TP 6.0 w/ a modded turbo.tpl (for speed). If you can't understand it
+  because you can't code or just started learning how to use Pascal, fuck
+  off. This is fucking advanced. Get with it.
+
+SOMETHING FIRST OFF..
+
+    First off, I want to say that I do not release this code so you lamer
+  puppies out there can put your name in it and spread it around. Since
+  BlueBEEP is everywhere already anyway, it's not like people wouldn't
+  notice, and all it would do for you is make your handle associated with
+  leym, uneleet behaviour all along. This source is being published so
+  people that know what they're doing can start adding new features, make
+  improvements and port this code to machines other than PC clones. It is
+  not there so you can steal the parts of the code you like and make your
+  own programs without giving me proper credit. I spend a hell of a lot of
+  time, sweat and effort on every single of those roughly 10,000 lines of
+  code, and all I am asking for is the proper respect: Whenever you use any
+  part of this code, mention my handle and say that I wrote this and that
+  part of it. Then send me some email at onkeld@planet.net and let me know
+  that you released a program that contains a part of my code. Uuencode me
+  a copy if you can. That's it. I am not asking for much. Just ripping my
+  code would be lame, childish, and illegal. And I guess I do not have to
+  mention that no part of this code or the program can be sold, used in any
+  commerical projects, or otherwise used for the purpose of personal
+  prosperity. If you like the way I code, hire me. I'm young, so I'm cheap.
+  But I'm greedy too; you have been warned.
+
+
+ABOUT THE CODE
+
+    Right here comes a little bit of info about the actual code files. The
+  overlay files and the standard config etc are covered later in this doc.
+  This covers the actual libs and includes you need to generate the initial
+  bluebeep.exe BEFORE it is packed and the overlays are added.
+
+    A little information on the whole process in general first: The final
+  BlueBEEP executable is generated in four steps. The script build.bat
+  takes care of it. First, bluebeep.pas and all the libraries are compiled
+  and linked into bluebeep.exe. Then that .exe is packed and the size of
+  the file has to be integrated into the overlay manager constant in
+  bbp_vars.pas. Then, it is compiled again with the new info, linked,
+  packed (with either lzexe or pklite), if pklite is used, the pklite
+  header info is stripped. After that, the overlay manager tool sostool.exe
+  throws all the necessary extra files (such as keys, default configs, dial
+  sets, and .voc files) into the .exe and the distributable, final, big
+  bluebeep.exe file is created. Any attempts in running bluebeep.exe before
+  the whole process is done or leaving anything out is inevitably going to
+  result in a nasty machine crash.
+
+
+THE SOURCE FILES
+
+  a------bbp_bsli.pas     4658   3/23/94 14.10  source\
+
+    This file is the BlueBEEP Script Language Interpreter. I hacked it up
+  in a very short time and it is not anything yet. Note to the hacker: This
+  could use some extra functions, variable support, etc. This is probably
+  one of the biggest expansion potentials for new version that could be
+  made.
+
+  a------bbp_conv.pas     3334   2/12/94 20.51  source\
+
+    Conversion lib. This has two conversion routines in it; the one to
+  convert the color coded docs into an indexed plaintext file, and the one
+  to convert the country code list (c-code.lst) into the data file
+  bluebeep.ccd. Should be working perfectly, and doesn't need any
+  improvements/fixes. Add any external file converting crap to this lib.
+
+  a------bbp_info.pas     7748   4/25/94 23.39  source\
+
+    Handles all of the "Information" menu (doc reader, key export). Works.
+  The doc reader is known to have some very minor bugs, and it could use an
+  out of memory check (easy, I'm just too lazy to put it in :))
+
+  a------bbp_init.pas    21233   3/20/95 23.38  source\
+
+    This unit has the main routine initialize() which does all the loading
+  and initializing when the program is first started, along with all of its
+  dependants. Whenever you add new stuff, make sure you add all the
+  necessary initialization routines (loading, allocating memory) here. If
+  command line parameters are used, the appropriate routine from bbp_pom
+  would be launched from here.
+
+  a------bbp_pom .pas    68229   3/20/95 23.29  source\
+
+    Phreak Out Menu. Contains the juiciest bits of the code; the action
+  mode (which means the actual dialer), the red box, the k0de/routing
+  scanner, fonewerd and all the other crap. The Action Mode could use a
+  good, index-based help system. Otherwise, it's fine.
+
+  a------bbp_proc.pas    29044   4/11/94 00.20  source\
+
+    This lib contains most of the general utility functions and procedures;
+  BlueBEEP-specific tool routines and maintenance stuff goes here.
+
+  a------bbp_set .pas    41580   3/20/95 23.34  source\
+
+    This contains the complete setup routines and menus. Note that all the
+  types are defined in bbp_vars and all the initializing is done in
+  bbp_init. Werd. The CardChecker needs a new setup (it got fried in the
+  big crash of '93), otherwise, it's k00l.
+
+  a------bbp_tool.pas    12968   3/20/95 22.57  source\
+
+    The Tools menu. Phonebook import/export, starfield, that kind of stuff.
+  Basically just code to import files from other dialers. Boring. Could need
+  some additions for new dialers and terminals to import their phonebooks.
+
+  a------bbp_vars.pas    16859   3/20/95 23.42  source\
+
+    All of the variables, types, file structures and constants are defined
+  here. This is probably the most important part of the code because
+  everything except local (temporary) variables is defined here. Carefully
+  read through it, it's going to give you a lot of insight how the code
+  works. If you add more global variables, make sure you add them here so
+  they can also be used globally. Pascal has a 64k limit on the data
+  segment, so be picky about what you declare global and what not. If you
+  need large variables, consider using pointers blah blah blah...
+
+  a------bbunit  .pas     4984   4/25/94 22.29  source\
+
+    This is the lib that actually squeezes the tones out of the adlib chip.
+  Also does the initializing. If you want to add support for other sound
+  cards, do it here. Gee, I wish Pascal supported function overloading!
+  Credit for most of this lib goes to Urmel (author of TLO, who wrote this
+  stuff from the AdLib card Programmers Manual) and Elroy/ECR (who stole it
+  from Urmel and tRaD3d it to me).
+
+  a------bitmani .pas     2470  11/05/93 18.38  source\
+
+    Tiny little lib that enables you to play with the individual bits in
+  almost any type of variable. Simple, basic, and perfect. Good to use
+  because it makes the code easier to read. Pascal's bitwise operates suck,
+  anyway.
+
+  a------bluebeep.pas     2238   3/20/95 23.14  source\
+
+    The main code. It's actually very short and does NOT need any changes
+  99% of the time. Gee, I am so proud of it :)
+
+  a------bsli    .pas     1771   2/15/94 14.25  source\
+
+    External version of the BlueBEEP Script Language Interpreter. Has not
+  been used since 0.06 or so. Check it out, if you improve the script
+  language you should definitely keep this up to date, too. In the case of
+  the bsli unit, it will keep up to date automatically (dependent).
+
+  a------chksum  .pas      850   5/04/94 01.53  source\
+
+    St00pid checksum routines I wanted to implement into the code time.
+  Gee, I hope you can come up with something better than this! Not actually
+  needed to compile the prog as of now. (Doug, you'll be laughing at this!
+  Actually, any checksum/crypto freak will burst out laughing over this
+  code. Don't bitch at me. I am just 1aYm.)
+
+  a------editrout.pas     7323  11/23/93 23.30  source\
+
+    The edit fields for all the variables (strings, integers, words, etc).
+  An important part of my user interface I am proud of. Werd. Supports
+  cursor keys, ins/del, etc. If have a useful idea on how to improve it, go
+  ahead. Don't fuck with it for no apparent reason if you can discipline
+  yourself.
+
+  a------errcheck.pas      907   3/09/94 07.04  source\
+
+    Little external tool that HAS to be compiled before you can run the
+  build script. Checks the tpc.exe log for errors and invokes the editor
+  for the appropriate file if there is one. Helps you out of typos without
+  major hassles (managing big projects with TP is a real bitch).
+
+  a------extras  .pas    21532   3/23/94 15.28  source\
+
+    A lib of tiny goodies and utility functions I started when I was 12 and
+  that I improved and rewrote many times every since. However, I can
+  guarantee you that you will stumble over some REALLY childish code in
+  there sooner or later. You have been warned.
+
+  a------ferror  .pas      521   2/12/94 19.31  source\
+
+    Fatal Error handling for BlueBEEP. Plain and simple. No comment.
+  Doesn't need anything. Unless Windows, I didn't feel intrigued to add
+  .wav support so I can play stupid samples when the prog crashes. Even if
+  you're compelled, don't. There's more useful stuff in the world that you
+  could spend your time on.
+
+  a------grmenus .pas     4595   3/24/94 23.41  source\
+
+    The menu system. It's called grmenus because all the menus were set
+  fixed to green before I added the multiple color set support. Talking
+  about color, making the color for every class of item individually
+  adjustible would be neat. Add it to bbp_set if you think that it would
+  make sense. I actually started coding a neat little menu for this; e-mail
+  me if you want to finish it; I didn't want to improve fragments and
+  little useless code-bits with this release.
+
+  a------grwins  .pas     3378   3/25/94 02.23  source\
+
+    (Zooming) windows. Straightforward, no-bullshit code to draw square
+  windows with colored frames. Works, is fast and never fails.
+
+  a------keyunit .pas      743  11/21/93 21.01  source\
+
+    The key system for the keys you give to beta testers. It's kinda lame,
+  not even remotely secure but lamer- and warezd00d-safe, and not really
+  complex. If you want to use a code, you have to fill it into the
+  appropriate space in bbp_vars and recompile the whole program. The
+  resulting .exe will be personalized only for your beta tester and
+  requires a handle and a password to start it up. Using the voice number
+  the beta tester as the password is usually good enough to keep them from
+  spreading the beta around. Since the phone number is not stored anywhere
+  (just the resulting key), it's hard to hack it as well. If you give out
+  betas and wanna keep 'em private, you can use this code as a foundation
+  to develop a better system.
+
+  a------litefix .pas      841   3/20/94 02.08  source\
+
+    Tiny program to change the (C) PKWAREZ note in pklited .exe files into
+  a custom message you can specify. If you use pklite instead of lzexe to
+  pack BlueBEEP, this will, through the build script, automatically take
+  care of it so you can spend the time you would use on patching it with a
+  hex editor on the finer things of life.
+
+  a------lscomm  .pas    18206   3/14/94 02.57  source\
+
+    Litespeed comm unit. It's buggy and it sucks. Based on some PD code and
+  slightly modified. Use a better comm unit or completely rewrite this crap
+  when you get a chance to (won't werk with certain com ports, etc.)
+
+  a------menus   .pas     2715  10/05/93 12.46  source\
+
+    More menu routines. All of the menu routines in BlueBEEP have the
+  option of default choices and mouse support. If you want to integrate a
+  new way of interfacing with the program, making changes to those
+  fundamental routines will have effects on the program as a whole. The
+  wonders of oop. Wewp.
+
+  a------mouseio .pas     2299   3/24/94 23.21  source\
+
+    Mouse interface routines. A bundle of functions I first wrote years ago
+  and then gradually made changes and/or bugfixes to it. Should be bug free
+  and complete by now. Don't fuck with it unless you know what you're doing
+  because most of those are interrupt routines.
+
+  a------optimer .pas     1998  10/05/93 12.34  source\
+
+    A timer unit that is mostly used to control delays and timing before
+  and after tones, tone durations, dialing speeds and delays and so on.
+  Came with bbunit and is hence obviously a courtesy of Urmel. I am using
+  this because it's way more precise than the delay() routines that Borland
+  provides, and we all know how crucial timing is when you're out there
+  trying to get that break right..
+
+  a------pdial   .pas     5933  11/05/93 18.44  source\
+
+    The pulse dialing routines for the pulse dial / line interface. Simple,
+  straightforward and bug free.
+
+  a------sbvoice .pas     7790   3/20/95 23.53  source\
+
+    Soundblaster .voc tools such as playback, recording, loading, etc. Used
+  by the card talker and everything else in BlueBEEP that uses voc files
+  and samples. You could add better memory management. Except for that,
+  it's almost perfect. Wrote it myself from scratch, and it took a lot of
+  time to piece together all the required info about the driver and such.
+  If you want to use it in your own progs, credit me (see top of file).
+
+  a------sos     .pas    10057   4/25/94 22.27  source\
+
+    The Smart Overlay System, another innovative idea by me. Allows you to
+  keep all your data in the .exe file and cheating your code into believing
+  that they are still external files. Replaces the routines for opening,
+  closing, reading from and writing to files and hence opens you a door to
+  making all your config and data files completely invisible. Didn't you
+  ever wish that some of the commercial programmers used stuff like this so
+  they didn't have to litter your hard drive with ten million files? Well,
+  I did. That's why I coded this. You are highly encouraged to use this in
+  your own programs as long as you give me credit. Could use a function to
+  delete files out of the overlay (another one of those things that are
+  obvious but which I am too lazy to implement).
+
+  a------sostool .pas      799   4/17/94 19.26  source\
+
+    A little tools which takes advantage of the sos lib and allows you to
+  add, list and browse the files in an overlay. This has to be compiled
+  before you can compile BlueBEEP because build.bat uses it to create the
+  final .exe file.
+
+  a------types   .pas      590  11/06/93 17.20  source\
+
+    Definition of a couple of weird data types I use. Generally, you should
+  add BlueBEEP-specific type definitions to bbp_vars, but if you add a
+  generic type that you might use later in something else, put it here.
+
+  a------vgagraph.pas     1870   2/12/94 21.20  source\
+
+    Cheap and slow routines to interface with the VGA card in MCGA mode
+  (320x200x256). Used by the star field and some of my older intros.
+
+  a------video   .pas     1369  11/05/93 22.12  source\
+
+    Handles the detection and adressing of color/mono text cards. Upon
+  startup, it automatically detects what kind of card you have installed so
+  all the direct writes to the video RAM can be adressed properly. I think
+  the autodetection still fails sometimes, but I am not sure. Works on 99%
+  of the system I tested it on.
+
+  a------bbp_bart.inc    22215   3/20/95 23.45  source\inc\
+  a------bbp_logo.inc    21934   3/20/95 23.46  source\inc\
+  a------bbp_tkom.inc     5589   3/20/95 23.47  source\inc\
+
+    Those three include files are the video ram images of the ANSIs that
+  are displayed throughout the program; the Bart Simpson screen, the
+  BlueBEEP logo, and the Telekom logo. If you are modifying these, make
+  sure you use TheDraw and save it as pascal code. Then just don't forget
+  to update the identifier names. And if you want to free up some data
+  segment space during expansion work on the source, these are some
+  potential data segment memory munchers that you could zap.
+
+

@@ -1,0 +1,134 @@
+; ----------------------------------------------------------------
+;  BlueBEEP Country Code List
+;  Use CONVCC C-CODE.LST BLUEBEEP.CCD to convert into data file
+;  Courtesy of NPA
+; ----------------+-----------------------------------------------
+;                 | 12 chars per county MAX
+1     USA/Canada
+20    Egypt
+212   Morocco
+213   Algeria
+216   Tunisia
+218   Libya
+220   Gambia
+221   Senegal
+225   Ivory Coast
+228   Togo
+229   Benin
+231   Liberia
+234   Nigeria
+237   Cameroon
+241   Gabon
+243   Zaire
+247   Ascension I.
+251   Ethiopia
+254   Kenya
+255   Tanzania
+256   Uganda
+260   Zambia
+263   Zimbabwe
+264   Namibia
+265   Malawi
+266   Lesotho
+268   Swaziland
+27    South Africa
+297   Aruba
+30    Greece
+31    Netherlands
+32    Belgium
+33    France
+34    Spain
+350   Gibraltar
+351   Portugal
+352   Luxembourg
+353   Ireland
+354   Iceland
+356   Malta
+357   Cyprus
+358   Finland
+359   Bulgaria
+36    Hungary
+37    DDR :-]
+381   Serbia
+385   Croatia
+386   Slovenia
+39    Italy
+39    San Marina
+39    Vatican City
+40    Romania
+41    Liechtenstei
+41    Switzerland
+42    Czechoslov.
+43    Austria
+44    U.K.
+45    Denmark
+46    Sweden
+47    Norway
+48    Poland
+49    Germany
+501   Belize
+502   Guatemala
+503   El Salvador
+504   Honduras
+505   Nicaragua
+506   Costa Rica
+507   Panama
+508   St. Pierre
+509   Haiti
+51    Peru
+53    Guantanamo
+54    Argentina
+55    Brazil
+56    Chile
+57    Colombia
+58    Venezuela
+590   Guadeloupe
+591   Bolivia
+592   Guyana
+593   Ecuador
+594   French Gu.
+595   Paraguay
+596   French Ant.
+597   Suriname
+598   Uruguay
+599   Neth. Ant.
+60    Malaysia
+61    Australia
+62    Indonesia
+63    Philippines
+64    New Zealand
+65    Singapore
+66    Thailand
+670   Saipan
+671   Guam
+673   Brunei
+675   Papua New G.
+679   Fiji Islands
+684   Amer. Samoa
+685   West'n Samoa
+687   New Caledoni
+689   French Poly.
+689   Tahiti
+7     Ex-USSR
+81    Japan
+82    Korea
+852   Hong Kong
+853   Macao
+86    Taiwan
+880   Bangladesh
+886   Taiwan
+90    Turkey
+91    India
+92    Pakistan
+94    Sri Lanka
+962   Jordan
+964   Iraq
+965   Kuwait
+966   Saudi Arabia
+967   Yemen Arab R
+968   Oman
+971   UAE
+972   Israel
+973   Bahrain
+974   Qatar
+98    Iran
